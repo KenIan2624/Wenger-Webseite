@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>S.T.B. Alfred Wenger</title>
+    <link rel="icon" type="image/png" href="bilder/Wenger-Alfred-cropped.svg">
+
+    <style>
+        /* ========================================
+           FARBEN UND GRUNDEINSTELLUNGEN
+        ======================================== */
+
+        :root {
+            --sand: #F4E7B2;
+            --rot: #B92D25;
+            --weiss: #FAF8F2;
+            --text: #51483F;
+            --banner: #FFF8E7;
+            --linie: #E7DCC4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--sand);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+
+        /* ========================================
+        KOPFZEILE UND LOGO
+        ======================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            min-height: 95px;
+            padding: 10px 5%;
+
+            background-color: var(--banner);
+            border-bottom: 1px solid var(--linie);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        /* Logo und Text gemeinsam */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            color: var(--rot);
+            text-decoration: none;
+
+            flex-shrink: 0;
+        }
+
+        /* Logo-Bild */
+        .logo img {
+            display: block;
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 0;
+        }
+
+        /* Überschrift und Unterüberschrift */
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
+        .logo-text h2 {
+            color: var(--rot);
+            font-size: 1.4rem;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .logo-text p {
+            color: var(--text);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 4px 0 0;
+        }
+
+
+
+        /* ========================================
+           NAVIGATION
+        ======================================== */
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-left: auto;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 5px;
+            transition: background-color 0.2s,
+                        color 0.2s;
+        }
+
+        nav a:hover,
+        nav a:focus-visible {
+            background-color: var(--rot);
+            color: white;
+        }
+
+
+        /* ========================================
+           TITELBEREICH MIT BAUSTELLENFOTO
+        ======================================== */
+
+        .hero {
+            min-height: 480px;
+            padding: 80px 8%;
+
+            display: flex;
+            align-items: center;
+
+            background-color: #E6D5A2;
+
+            background-image:
+                linear-gradient(
+                    90deg,
+                    rgba(35, 30, 24, 0.78),
+                    rgba(35, 30, 24, 0.18)
+                ),
+                url("bilder/mauerwerk.jpg");
+
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            color: white;
+        }
+
+        .hero-inhalt {
+            max-width: 720px;
+        }
+
+        .hero-kicker {
+            color: var(--sand);
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.3rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            font-size: 1.15rem;
+            margin-bottom: 28px;
+        }
+
+
+        /* ========================================
+           BUTTONS
+        ======================================== */
+
+        .button {
+            display: inline-block;
+            padding: 13px 22px;
+
+            background-color: var(--rot);
+            color: white;
+
+            border: 2px solid var(--rot);
+            border-radius: 5px;
+
+            text-decoration: none;
+            font-weight: bold;
+
+            transition: background-color 0.2s,
+                        color 0.2s;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            background-color: #92221D;
+            border-color: #92221D;
+        }
+
+
+        /* ========================================
+           HAUPTBEREICH
+        ======================================== */
+
+        main {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 24px;
+        }
+
+        section {
+            margin-bottom: 50px;
+            scroll-margin-top: 110px;
+        }
+
+        .abschnitt-titel {
+            margin-bottom: 26px;
+        }
+
+        .abschnitt-titel h2,
+        .textbereich h2 {
+            color: var(--rot);
+            font-size: clamp(1.7rem, 3vw, 2.2rem);
+            margin-bottom: 10px;
+        }
+
+        .abschnitt-titel p {
+            max-width: 700px;
+        }
+
+
+        /* ========================================
+           PROJEKTKARTEN MIT FOTOS
+        ======================================== */
+
+        .projekte {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .karte {
+            min-width: 0;
+            overflow: hidden;
+
+            background-color: var(--weiss);
+            border: 1px solid var(--linie);
+            border-radius: 10px;
+
+            box-shadow: 0 4px 12px rgba(81, 72, 63, 0.08);
+
+            transition: transform 0.2s,
+                        box-shadow 0.2s;
+        }
+
+        .karte:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(81, 72, 63, 0.13);
+        }
+
+        .karte img {
+            display: block;
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .karte-inhalt {
+            padding: 22px;
+        }
+
+        .karte h3 {
+            color: var(--rot);
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .karte p {
+            margin-bottom: 12px;
+        }
+
+
+        /* ========================================
+           ALLGEMEINE TEXTBEREICHE
+        ======================================== */
+
+        .textbereich {
+            padding: 32px;
+
+            background-color: var(--weiss);
+            border: 1px solid var(--linie);
+            border-radius: 10px;
+        }
+
+        .textbereich p {
+            margin-bottom: 12px;
+        }
+
+        .textbereich a {
+            color: var(--rot);
+        }
+
+
+        /* ========================================
+           KONTAKTBEREICH
+        ======================================== */
+
+        .kontakt-button {
+            margin-top: 10px;
+        }
+
+
+        /* ========================================
+           FUSSZEILE
+        ======================================== */
+
+        footer {
+            min-height: 70px;
+            padding: 22px 5%;
+
+            background-color: var(--banner);
+            border-top: 1px solid var(--linie);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            color: var(--text);
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--rot);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        footer a:hover,
+        footer a:focus-visible {
+            text-decoration: underline;
+        }
+
+
+        /* ========================================
+           TABLET
+        ======================================== */
+
+        @media (max-width: 850px) {
+            header {
+                flex-direction: column;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .projekte {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero {
+                min-height: 400px;
+                padding: 60px 7%;
+            }
+        }
+
+
+        /* ========================================
+           SMARTPHONE
+        ======================================== */
+
+        @media (max-width: 550px) {
+            header {
+                min-height: 80px;
+                padding: 10px 16px;
+            }
+
+
+            .logo {
+                height: 80px;
+                gap: 8px;
+            }
+
+
+            .logo img {
+                width: 60px;
+                height: 60px;
+                margin-top: 10px;
+            }
+
+            .logo-text h2 {
+                font-size: 1.1rem;
+            }
+
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+
+            nav {
+                gap: 4px;
+            }
+
+            nav a {
+                padding: 8px 9px;
+                font-size: 0.9rem;
+            }
+
+            .projekte {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: 380px;
+                padding: 45px 24px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 32px 16px;
+            }
+
+            .textbereich {
+                padding: 24px;
+            }
+
+            footer {
+                justify-content: center;
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ========================================
+         KOPFZEILE
+    ======================================== -->
+
+    <header>
+
+        <a href="#start" class="logo">
+            <img
+                src="bilder/Wenger Alfred Logo Klein-cropped.svg"
+                alt="Logo des Bauunternehmens"
+            >
+
+             <div class="logo-text">
+                <h2>Wenger Alfred</h2>
+                <p>Spedition · Transport · Baggerbetrieb</p>
+            </div>
+        </a>
+
+        <nav aria-label="Hauptnavigation">
+            <a href="#start">Startseite</a>
+            <a href="#leistungen">Leistungen</a>
+            <a href="#projekte">Projekte</a>
+            <a href="#kontakt">Kontakt</a>
+        </nav>
+
+    </header>
+
+
+    <!-- ========================================
+         TITELBEREICH
+    ======================================== -->
+
+    <div class="hero" id="start">
+
+        <div class="hero-inhalt">
+
+            <p class="hero-kicker">
+                Bauen mit Qualität
+            </p>
+
+            <h1>
+                Handwerk, das Zukunft baut.
+            </h1>
+
+            <p>
+                Qualität, Zuverlässigkeit und Erfahrung –
+                vom Fundament bis zum fertigen Gebäude.
+            </p>
+
+            <a href="#projekte" class="button">
+                Unsere Projekte entdecken
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================
+         HAUPTINHALT
+    ======================================== -->
+
+    <main>
+
+        <!-- Leistungen -->
+
+        <section id="leistungen">
+
+            <div class="abschnitt-titel">
+
+                <h2>Unsere Leistungen</h2>
+
+                <p>
+                    Professionelle Arbeit, hochwertige Materialien
+                    und zuverlässige Umsetzung – dafür stehen wir.
+                </p>
+
+            </div>
+
+
+            <div class="projekte">
+
+                <!-- Karte 1 -->
+
+                <article class="karte">
+
+                    <img
+                        src="bilder/rohbau.jpg"
+                        alt="Rohbau eines Gebäudes"
+                        loading="lazy"
+                    >
+
+                    <div class="karte-inhalt">
+
+                        <h3>Rohbau</h3>
+
+                        <p>
+                            Solide Grundlagen und sorgfältige
+                            Ausführung für dein Bauvorhaben.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Karte 2 -->
+
+                <article class="karte">
+
+                    <img
+                        src="bilder/mauerwerk.jpg"
+                        alt="Arbeiten am Mauerwerk"
+                        loading="lazy"
+                    >
+
+                    <div class="karte-inhalt">
+
+                        <h3>Mauerwerk</h3>
+
+                        <p>
+                            Präzises Handwerk und hochwertige
+                            Materialien für langlebige Gebäude.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Karte 3 -->
+
+                <article class="karte">
+
+                    <img
+                        src="bilder/bauprojekt.jpg"
+                        alt="Bauprojekt während der Ausführung"
+                        loading="lazy"
+                    >
+
+                    <div class="karte-inhalt">
+
+                        <h3>Bauprojekte</h3>
+
+                        <p>
+                            Einblicke in unsere Arbeit und
+                            unsere abgeschlossenen Projekte.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Projekte -->
+
+        <section id="projekte">
+
+            <div class="textbereich">
+
+                <h2>Unsere Projekte</h2>
+
+                <p>
+                    Hier präsentieren wir ausgewählte Bauprojekte,
+                    Referenzen und Einblicke in unsere tägliche Arbeit.
+                </p>
+
+                <p>
+                    Weitere Fotos und Informationen zu unseren
+                    Bauvorhaben werden hier ergänzt.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Kontakt -->
+
+        <section id="kontakt">
+
+            <div class="textbereich">
+
+                <h2>Kontakt</h2>
+
+                <p>
+                    Du planst ein Bauvorhaben oder hast Fragen?
+                    Wir freuen uns auf deine Nachricht.
+                </p>
+
+                <p>
+                    E-Mail:
+                    <a href="mailto:info@beispiel.de">
+                        info@beispiel.de
+                    </a>
+                </p>
+
+                <a
+                    class="button kontakt-button"
+                    href="mailto:info@beispiel.de"
+                >
+                    Nachricht schreiben
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ========================================
+         FUSSZEILE
+    ======================================== -->
+
+    <footer>
+
+        <p>
+            &copy; 2026 Wenger Alfred (Spedition Transport Baggerbetrieb)
+        </p>
+
+        <a href="impressum.html">
+            Impressum + Datenschutz
+        </a>
+
+    </footer>
+
+</body>
+
+</html>
